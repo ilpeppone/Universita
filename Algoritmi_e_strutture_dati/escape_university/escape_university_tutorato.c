@@ -50,15 +50,15 @@ void merge_sort(struct pair *pairs, int start, int end) {
     }
 }
 struct pair find(struct pair *pairs, size_t pairs_size, int target){
-    if (low > high)
-        return NULL;
-    mid = (high + low)/2;
-    if (A[mid] = k)
+    if (pairs[0].x > pairs[pairs_size].x)
+        return;
+    int mid = (pairs[0].x + pairs[pairs_size].x)/2;
+    if (pairs[mid].x == target)
         return mid;
-    if (A[mid] < k)
-        return RecursiveBinarySearch(pairs, pairs_size+1, target);
-    if (A[mid] > k)
-        return RecursiveBinarySearch(pairs, pairs_size - 1, target);
+    if (pairs[mid].x < target)
+        return find(pairs, pairs_size+1, target);
+    if (pairs[mid].x > target)
+        return find(pairs, pairs_size - 1, target);
 }
 
 void solve(struct pair *pairs,int pairs_size,int query,FILE *output){
