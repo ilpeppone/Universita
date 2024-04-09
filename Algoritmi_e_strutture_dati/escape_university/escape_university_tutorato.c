@@ -9,18 +9,19 @@ struct pair{
     
 };
 // Sottoprocedura di `merge_sort` per unire due range.  
-void merge(int *arr, int start, int mid, int end) {
+void merge(struct pair *pairs, int start, int mid, int end) {
     int n1 = mid - start + 1;
     int n2 = end - mid;
 
-    int i, j, left[n1], right[n2];
+    int i, j;
+    struct pair left[n1], right[n2];
 
     for (i=0; i<n1; i++) {
-        left[i] = arr[start+i];
+        left[i] =  pairs[start+i];
     }
 
     for (j=0; j<n2; j++) {
-        right[j] = arr[mid+1+j];
+        right[j] = pairs[mid+1+j];
     }
 
     i = j = 0;
@@ -29,31 +30,41 @@ void merge(int *arr, int start, int mid, int end) {
     for (int k=start; k<=end; k++) {
         if (i < n1) {
             if (j < n2) {
-                arr[k] = (left[i]<= right[j]) ? left[i++] : right[j++];
+                pairs[k] = (left[i].x<= right[j].x) ? left[i++] : right[j++];
             } else {
-                arr[k] = left[i++];
+                pairs[k] = left[i++];
             }
         } else {
-            arr[k] = right[j++];
+            pairs[k] = right[j++];
         }
     }
 }
 
 //Implementazione di `merge sort`.
-void merge_sort(int *arr, int start, int end) {
+void merge_sort(struct pair *pairs, int start, int end) {
     if (start < end) {
         int mid = start + (end-start) / 2;
-        merge_sort(arr, start, mid);
-        merge_sort(arr, mid+1, end);
-        merge(arr, start, mid, end);
+        merge_sort(pairs, start, mid);
+        merge_sort(pairs, mid+1, end);
+        merge(pairs, start, mid, end);
     }
 }
-struct pair find(){
-    
+struct pair find(struct pair *pairs, size_t pairs_size, int target){
+    if (low > high)
+        return NULL;
+    mid = (high + low)/2;
+    if (A[mid] = k)
+        return mid;
+    if (A[mid] < k)
+        return RecursiveBinarySearch(pairs, pairs_size+1, target);
+    if (A[mid] > k)
+        return RecursiveBinarySearch(pairs, pairs_size - 1, target);
 }
 
 void solve(struct pair *pairs,int pairs_size,int query,FILE *output){
     struct pair p = find(pairs,pairs_size,query); //Binary search da implementare
+    // Se il risultato è stato trovato, lo stampo;
+    // sennò stampo "NULL ".
     if(p.x==query){
         fprintf(output,"%d",p.id);
     }else{
@@ -96,11 +107,11 @@ int main(void){
     FILE *input=fopen("input.txt","r");
     FILE *output=fopen("output.txt","w");
     if (input==NULL || output==NULL){
-    return -1;
+        exit(1);
     }
     escape_university(input,output);
     if(fclose(input)!=0 || fclose(output)!=0){
-        return -2;
+        exit(2);
     }
     return 0;
 }
