@@ -5,8 +5,7 @@
 
 struct pair{
     int x;
-    int id;
-    
+    int id;    
 };
 // Sottoprocedura di `merge_sort` per unire due range.  
 void merge(struct pair *pairs, int start, int mid, int end) {
@@ -49,16 +48,17 @@ void merge_sort(struct pair *pairs, int start, int end) {
         merge(pairs, start, mid, end);
     }
 }
-struct pair find(struct pair *pairs, size_t pairs_size, int target){
+
+struct pair find(struct pair *pairs, size_t pairs_size, int target){ //Binary search da implementare
     if (pairs[0].x > pairs[pairs_size].x)
         return;
     int mid = (pairs[0].x + pairs[pairs_size].x)/2;
-    if (pairs[mid].x == target)
+    if (pairs[mid].x = target)
         return mid;
     if (pairs[mid].x < target)
-        return find(pairs, pairs_size+1, target);
+        return find(pairs, mid+1, target);
     if (pairs[mid].x > target)
-        return find(pairs, pairs_size - 1, target);
+        return find(pairs, mid - 1, target);
 }
 
 void solve(struct pair *pairs,int pairs_size,int query,FILE *output){
