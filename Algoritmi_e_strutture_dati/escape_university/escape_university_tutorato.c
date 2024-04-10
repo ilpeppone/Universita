@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #define MAX 1000*1000
 
 
@@ -29,7 +29,7 @@ void merge(struct pair *pairs, int start, int mid, int end) {
     for (int k=start; k<=end; k++) {
         if (i < n1) {
             if (j < n2) {
-                pairs[k] = (left[i].x < right[j].x) ? left[i++] : right[j++];
+                pairs[k] = (left[i].x<= right[j].x) ? left[i++] : right[j++];
             } else {
                 pairs[k] = left[i++];
             }
@@ -49,28 +49,24 @@ void merge_sort(struct pair *pairs, int start, int end) {
     }
 }
 
-struct pair find(struct pair *pairs, int start, int end, int target) {
-     if (start > end) {
-        return (struct pair) {-1, -1}; // Restituisce una coppia con valori -1 se l'elemento non è stato trovato
-    }
-
-    int mid = start + (end - start) / 2;
-
-    if (pairs[mid].x == target) {
-        return pairs[mid];
-    } else if (pairs[mid].x < target) {
-        return find(pairs, mid + 1, end, target);
-    } else {
-        return find(pairs, start, mid - 1, target);
-    }
+struct pair find(struct pair *pairs, size_t pairs_size, int target){ //Binary search da implementare
+    if (pairs[0].x > pairs[pairs_size].x)
+        return;
+    int mid = (pairs[0].x + pairs[pairs_size].x)/2;
+    if (pairs[mid].x == target)
+        return mid;
+    if (pairs[mid].x < target)
+        return find(pairs, mid+1, target);
+    if (pairs[mid].x > target)
+        return find(pairs, mid - 1, target);
 }
 
 void solve(struct pair *pairs,int pairs_size,int query,FILE *output){
-    struct pair p = find(pairs,0,pairs_size-1,query); //Binary search da implementare
+    struct pair p = find(pairs,pairs_size,query); //Binary search da implementare
     // Se il risultato è stato trovato, lo stampo;
     // sennò stampo "NULL ".
     if(p.x==query){
-        fprintf(output,"%d\t",p.id);
+        fprintf(output,"%d",p.id);
     }else{
         fprintf(output,"NULL");
     }
