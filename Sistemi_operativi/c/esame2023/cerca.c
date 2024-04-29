@@ -15,19 +15,19 @@ void handler_count(){
 }
 
 void handler_start(){
-    pritf("Handler avviato\n");
+    printf("Handler avviato\n");
 }
 
 int main(int argc,char **argv){
-    int pid,fd,nris,p1p2[2],pid1,pid2,status;
+    int fd,nris,p1p2[2],pid1,pid2,status;
     char cognome[DIM], genere[DIM],path[200],nrisstr[DIM];
 
     if(argc != 2){
-        printf("Uso: %s percorso dir\n");
+        printf("Uso: %s percorso dir\n",argv[0]);
         exit(1);
     }
-    if(argv[1][0] != "/"){
-        printf("Errore: %s non si tratta di un percorso assoluto\n",argv[1]);
+    if(argv[1][0] != '/'){
+        printf("Errore: %s non si tratta di un percorso assoluto\n",argv[0]);
         exit(2);
     }
     if((fd=open(argv[1], O_DIRECTORY))<0){

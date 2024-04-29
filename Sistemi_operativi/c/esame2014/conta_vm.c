@@ -38,7 +38,7 @@ int main(int argc,char **argv){
         printf("Uso: %s dir\n",argv[0]);
         exit(1);
     }
-    if (argv[1][0] != "/"){
+    if (argv[1][0] != '/'){
         printf("Errore! %s non e' un direttorio assoluto\n",argv[1]);
         exit(2);
     }
