@@ -1,4 +1,3 @@
-<?php for ($i=0; $i<50;$i++){
-    echo "ciao\n";
-}
-?>
+<?php for ($i=0; $i<50;$i++):?>
+    <br> ciao </br> 
+<?php endfor ?>
