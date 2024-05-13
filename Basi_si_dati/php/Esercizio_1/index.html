@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang = "it">
+    <head>
+        <meta charset="utf-8">
+        <title> Raccolta dati </title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+        <style>
+            body{
+                max-width: 1200;
+            }
+        </style>
+    </head>
+    <body>
+        <h1> Raccolta dati </h1>
+        <form action = "script.php" method = "POST"></form>
+            <fieldset> 
+                <lable> Nome: </lable>
+                <input type="text" nome="nome">
+            </fieldset>
+            <fieldset>
+                <lable> Cognome: </lable>
+                <input type = "text" cognome ="cognome">
+            </fieldset>
+            <fieldset>
+                <lable> Data di nascita </lable>
+                <input type ="date">
+            </fieldset>
+            <fieldset> 
+                <lable> Indirizzo di residenza</lable>
+                <input type ="text" residenza ="residenza">
+            </fieldset>
+            <input type ="submit" value="Invia">
+        </form>
+    </body>
+</html>
