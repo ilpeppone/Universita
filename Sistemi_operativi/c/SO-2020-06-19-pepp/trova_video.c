@@ -3,6 +3,7 @@
 #include <signal.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #define DD 200
 #define Dim_Data 7
@@ -15,7 +16,7 @@ void handler(){
 }
 
 int main(int argc,char **argv){
-    int fd,pid,p1p2[2],p0p2[2];
+    int fd,pid,p1p2[2],p0p2[2],status;
     char dir[DD],data[Dim_Data],tipo[Dim_Tipo],file_path[DIM_PATH];
     if(argc!=2){
         fprintf(stderr,"Uso: %s dir\n",argv[0]);
@@ -61,12 +62,45 @@ int main(int argc,char **argv){
         }
         if(pid==0){
             signal(SIGINT,SIG_DFL);
-
             
+            close(p1p2[0]);
+            //redirezione stdout
+            close(1);
+            dup(p1p2[1]);
+            close(p1p2[1]);
+            execlp("grep","grep",tipo,(char *)0);
+            perror("Errore grep\n");
+            exit(-6);
+        }
+        if(pipe(p0p2)<0){
+            perror("Errore p0p2\n");
+            exit(-4);
+        }
+        if((pid=fork())<0){
+            perror("Error fork p2");
+            exit(-5);
+        }
+        if(pid==0){
+            signal(SIGINT,SIG_DFL);
+
+            close(p1p2[0]);
+            //redirezione stdin
+            close(0);
+            dup(p1p2[1]);
+            close(p1p2[1]);
+            //redirezione stdout
+            close(1);
+            dup(p0p2[1]);
+            close(p0p2[1]);
         }
 
+        close(p1p2[1]);
+        close(p0p2[0]);
 
+        wait(&status);
+        wait(&status);
 
+        counter ++;
     }
 
 }
