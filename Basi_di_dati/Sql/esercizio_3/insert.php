@@ -1,15 +1,18 @@
 <?php
 
+	try {
 	// Connessione 
-	$link = mysqli_connect("127.0.0.1", "giacomo", "password", "Azienda");
-
-	// Controllo se è avvenuta la connessione al database:
-	if (!$link) { // if ($link == NULL)
-		echo "Si è verificato un errore: Non riesco a collegarmi al database <br/>";
-		echo "Codice errore: " . mysqli_connect_errno() . "<br/>";
-		echo "Messaggio errore: " . mysqli_connect_error() . "<br/>";
-		exit;
+	$link = mysqli_connect("127.0.0.1", "peppe", "panecotto07@", "Azienda");//127.0.0.1:3306
+	} catch (mysqli_sql_exception $e) {
+		die("Non posso stabilire la connessione con il db". $e->getMessage());
 	}
+	// Controllo se è avvenuta la connessione al database:
+	//if (!$link) { // if ($link == NULL)
+	//	echo "Si è verificato un errore: Non riesco a collegarmi al database <br/>";
+	//	echo "Codice errore: " . mysqli_connect_errno() . "<br/>";
+	//	echo "Messaggio errore: " . mysqli_connect_error() . "<br/>";
+	//	exit;
+	//}
 
 	$NOME_BATT 	= $_POST['NOME_BATT'];
 	$INIZ_INT 	= $_POST['INIZ_INT'];
@@ -22,7 +25,7 @@
 	$SUPER_SSN 	= $_POST['SUPER_SSN'];
 	$N_D 		= $_POST['N_D'];
 	
-	$sql = "INSERT INTO IMPIEGATO 
+	$sql = "INSERT INTO IMPIEGATO
 					VALUES ('$NOME_BATT', '$INIZ_INT', '$COGNOME', '$SSN', 
 							'$DATA_N', '$INDIRIZZO', '$SESSO', $STIPENDIO, 
 							'$SUPER_SSN', $N_D)";
