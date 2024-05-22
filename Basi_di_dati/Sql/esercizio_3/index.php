@@ -1,3 +1,30 @@
+<?php 
+
+	include_once('connessione.php');
+
+    $sql = "SELECT NUMERO_D, NOME_D FROM DIPARTIMENTO";
+    
+    $result = mysqli_query($link, $sql);
+    
+    $n_d = array();
+
+    while ($row = mysqli_fetch_array($result)) {
+		// $row => | NUMERO_D | NOME_D | ... |
+		/* $row = [
+			'NUMERO_D' => 4,
+			'NOME_D' => 'Administration',
+		]*/
+		
+		$n_d [ $row['NUMERO_D'] ] = $row['NOME_D'];
+		/* $n_d =[
+				[4 => 'Research'],
+				... 
+			] */
+    }
+	    
+    mysqli_close($link);
+?>
+
 <!DOCTYPE html>
 <html lang="it">
     <head>
@@ -13,14 +40,12 @@
 			}
 		</style>
     </head>
-    
-    <body>
-		<h1>Inserimento impiegato</h1>
 
+    <body>
 		<form action="insert.php" method="POST">
 			<fieldset>
 				<label>NOME_BATT:</label>
-				<input type="text" name="NOME_BATT" autofocus >
+				<input type="text" name="NOME_BATT">
 			</fieldset>
 			<fieldset>
 				<label>INIZ_INT:</label>
@@ -32,11 +57,11 @@
 			</fieldset>
 			<fieldset>
 				<label>SSN:</label>
-				<input type="text" name="SSN" required >
+				<input type="text" name="SSN">
 			</fieldset>
 			<fieldset>
 				<label>DATA_N:</label>
-				<input type="text" name="DATA_N">
+				<input type ="date" name="DATA_N">
 			</fieldset>
 			<fieldset>
 				<label>INDIRIZZO:</label>
@@ -57,13 +82,17 @@
 			<fieldset>
 				<label>N_D:</label>
 				<select name="N_D">
-					<option value="1">Headquarter</option>	
-					<option value="4">Administration</option>	
-					<option value="5">Research</option>	
+                    <?php foreach ($n_d as $index => $value): ?>
+                        <option value="<?php echo $index; ?>">
+							<?php echo $value; ?></option>	
+					<?php endforeach; ?>
 				</select>
 			</fieldset>
 
-			<input type="submit" value="Inserisci" />
+			<input type="submit" value="Invia" />
 		</form>
     </body>
+
 </html>
+
+

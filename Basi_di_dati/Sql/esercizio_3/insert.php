@@ -1,18 +1,6 @@
 <?php
 
-	try {
-	// Connessione 
-	$link = mysqli_connect("127.0.0.1", "peppe", "panecotto07@", "Azienda");//127.0.0.1:3306
-	} catch (mysqli_sql_exception $e) {
-		die("Non posso stabilire la connessione con il db". $e->getMessage());
-	}
-	// Controllo se è avvenuta la connessione al database:
-	//if (!$link) { // if ($link == NULL)
-	//	echo "Si è verificato un errore: Non riesco a collegarmi al database <br/>";
-	//	echo "Codice errore: " . mysqli_connect_errno() . "<br/>";
-	//	echo "Messaggio errore: " . mysqli_connect_error() . "<br/>";
-	//	exit;
-	//}
+	include_once('connessione.php');
 
 	$NOME_BATT 	= $_POST['NOME_BATT'];
 	$INIZ_INT 	= $_POST['INIZ_INT'];
@@ -25,7 +13,7 @@
 	$SUPER_SSN 	= $_POST['SUPER_SSN'];
 	$N_D 		= $_POST['N_D'];
 	
-	$sql = "INSERT INTO IMPIEGATO
+	$sql = "INSERT INTO IMPIEGATO 
 					VALUES ('$NOME_BATT', '$INIZ_INT', '$COGNOME', '$SSN', 
 							'$DATA_N', '$INDIRIZZO', '$SESSO', $STIPENDIO, 
 							'$SUPER_SSN', $N_D)";
@@ -37,10 +25,11 @@
 		exit;
 	}
 
-	mysqli_close($link);
+	
 ?>
 
-<html lang="it">    
+<html lang="it">
+    
     <head>
         <meta charset="utf-8">
 		        
@@ -54,7 +43,27 @@
 			}
 		</style>
     </head>
+
     <body>
 		<p>Ho inserito il nuovo impiegato <?php echo $NOME_BATT; ?></p>
+		<?php $stampa="SELECT NOME_BATT , INIZ_INT, COGNOME, SSN, DATA_N, INDIRIZZO, SESSO, STIPENDIO, SUPER_SSN  FROM impiegato";
+		$result = $link->query($stampa);
+		echo "<table>";
+		if ($result->num_rows>0){
+			while ($row= $result->fetch_assoc()){
+				echo "<tr>";
+				echo "<td>" . $row["NOME_BATT"] . "</td><td>" . $row["INIZ_INT"] . "</td><td>"
+				. $row["COGNOME"] . "</td><td>" . $row["SSN"] . "</td><td>" . $row["DATA_N"] 
+				. "</td><td>" . $row["INDIRIZZO"] . "</td><td>" . $row["SESSO"] . "</td><td>" 
+				. $row["STIPENDIO"] . "</td><td>" . $row["SUPER_SSN"] . "</td>";
+				echo "</tr>";
+			}
+		}
+		echo "</table>";
+		mysqli_close($link);
+		?>
+		
     </body>
+
 </html>
+
