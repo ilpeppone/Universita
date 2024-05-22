@@ -4,7 +4,7 @@
 #include <signal.h>
 #include <string.h>
 #include <unistd.h>
-
+#include <sys/wait.h>
 
 #define COG 30 
 #define PRE 7
@@ -15,7 +15,7 @@ void handler(){
 }
 
 int main (int argc,char **argv){
-    int fd,pid,p1p2[2],p0p2[2];
+    int fd,pid,p1p2[2],status;
     char cognome[COG],prefisso[PRE];
     if(argc!=2){
         fprintf(stderr,"Uso: %s fileAnagrafica\n",argv[0]);
@@ -28,20 +28,26 @@ int main (int argc,char **argv){
     }
 
     if((fd=open(argv[1],O_RDONLY))<0){
-        perror("Errore apertura file\n");
+        fprintf(stderr,"Errore apertura file\n");
         exit(-3);
     }
     close(fd);
 
-    signal(SIGINT,SIG_DFL);
+    signal(SIGINT,handler);
 
-    printf("Inserisci il cognome da ricercare: \n");
-    scanf("%s",cognome);
+    
 
-    printf("Inserisci il prefisso telefonico: \n");
-    scanf("%s",prefisso);
+    while(1){
+        printf("Inserisci il cognome da ricercare\n");
+        scanf("%s", cognome);
 
-    while(strcmp(cognome,"fine")){
+        if (!strcmp(cognome, "fine") ) break;
+
+        printf("Inserirsci il prefisso di interesse\n");
+        scanf("%s", prefisso);
+
+        if (!strcmp(prefisso, "fine")) break;
+
         if(pipe(p1p2)<0){
             perror("Errore pipe\n");
             exit(-4);
@@ -52,7 +58,7 @@ int main (int argc,char **argv){
             exit(-5);
         }
         if(pid==0){
-            signal (SIGINT,handler);
+            signal (SIGINT,SIG_DFL);
             close(p1p2[1]);
 
             close(1);
@@ -64,29 +70,21 @@ int main (int argc,char **argv){
             exit(-6);
         }
 
-        if((pipe(p0p2))<0){
-            perror("Errore p0p2\n");
-            exit(-4);
-        }
-
+        
         if((pid=fork())<0){
             perror("Errore fork2\n");
             exit(-5);
         }
 
         if(pid==0){
-            signal(SIGINT,handler);
+            signal(SIGINT,SIG_DFL);
 
             close(p1p2[0]);
-            close(p0p2[1]);
-
-            close(0);
+            
+            close(1);
             dup(p1p2[1]);
             close(p1p2[1]);
-
-            close(1);
-            dup(p0p2[0]);
-            close(p0p2[0]);
+            
 
             execlp("grep","grep",prefisso,(char *)0);
             perror("Grep 2\n");
@@ -94,17 +92,13 @@ int main (int argc,char **argv){
         }
         close(p1p2[0]);
         close(p1p2[1]);
-        close(p0p2[0]);
-        close(p0p2[1]);
 
+        wait(&status);
+        wait(&status);
         count ++;
-
-        printf("Inserisci il cognome da ricercare: \n");
-        scanf("%s",cognome);
-
-        printf("Inserisci il prefisso telefonico: \n");
-        scanf("%s",prefisso);
-
+    
+        
     }
+    printf("Numero di richieste effettuate: %d\n",count);
     return 0;
 }
