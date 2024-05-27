@@ -42,7 +42,7 @@
     </head>
 
     <body>
-		<form action="insert.php" method="POST">
+		<form action="insert_impiegato.php" method="POST">
 			<fieldset>
 				<label>NOME_BATT:</label>
 				<input type="text" name="NOME_BATT">
@@ -94,5 +94,3 @@
     </body>
 
 </html>
-
-
