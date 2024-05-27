@@ -1,22 +1,14 @@
 <?php
 
 	include_once('connessione.php');
-
-	$NOME_D 	= $_POST['NOME_D'];
-	$NUMERO_D 	= $_POST['NUMERO_D'];
-	$SSN_DIR		= $_POST['SSN_DIR'];
-	$DATA_INIZIO_DIR	= $_POST['DATA_INIZIO_DIR'];
-	
-	$sql = "INSERT INTO DIPARTIMENTO 
-					VALUES ('$NOME_D', '$NUMERO_D', '$SSN_DIR', 
-							'$DATA_INIZIO_DIR')";
-	
-	$query = mysqli_query($link, $sql);
-
-	if (!$query) {
-		echo "Si è verificato un errore: " . mysqli_error($link);
-		exit;
-	}
+    if (empty($_POST)) {
+       
+    } else {
+        $NOME_D 	= $_POST['NOME_D'];
+	    $NUMERO_D 	= $_POST['NUMERO_D'];
+	    $SSN_DIR		= $_POST['SSN_DIR'];
+	    $DATA_INIZIO_DIR	= $_POST['DATA_INIZIO_DIR'];
+    }
 	
 ?>
 
@@ -37,21 +29,28 @@
     </head>
 
     <body>
-		<p>Ho inserito il nuovo dipartimento <?php echo $NOME_BATT; ?></p>
-		<?php $stampa="SELECT NOME_D , NUMERO_D, SSN_DIR, DATA_INIZIO_DIR  FROM dipartimento";
-		$result = $link->query($stampa);
-		echo "<table>";
-		if ($result->num_rows>0){
-			while ($row= $result->fetch_assoc()){
-				echo "<tr>";
-				echo "<td>" . $row["NOME_D"] . "</td><td>" . $row["NUMERO_D"] . "</td><td>"
-				. $row["SSN_DIR"] . "</td><td>" . $row["DATA_INIZIO_DIR"] . "</td>" ;
-				echo "</tr>";
-			}
-		}
-		echo "</table>";
-		mysqli_close($link);
-		?>
+    <form action="insert_dipartimento.php" method="POST">
+	<form action="insert_impiegato.php" method="POST">
+			<fieldset>
+				<label>NOME_D:</label>
+				<input type="text" name="NOME_D">
+			</fieldset>
+			<fieldset>
+				<label>NUMERO_D:</label>
+				<input type="text" name="NUMERO_D">
+			</fieldset>
+			<fieldset>
+				<label>SSN_DIR:</label>
+				<input type="text" name="SSN_DIR">
+			</fieldset>
+			<fieldset>
+				<label>DATA_INIZIO_DIR:</label>
+				<input type="date" name="DATA_INIZIO_DIR">
+            </fieldset>
+
+			<input type="submit" value="Invia" />
+		</form>	
+	
 		
     </body>
 
