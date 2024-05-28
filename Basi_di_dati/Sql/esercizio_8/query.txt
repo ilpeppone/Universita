@@ -1,0 +1,12 @@
+--QUERY 1
+SELECT 
+    AVG(p.peso) AS peso_medio,
+    MAX(p.peso) AS peso_massimo,
+    MIN(p.peso) AS peso_minimo,
+    SUM(p.peso) AS peso_totale
+FROM 
+    PACCHETTI p
+JOIN 
+    UFFICI u ON p.Nufficio = u.nome
+WHERE 
+    u.citta = 'Milano';
