@@ -1,7 +1,5 @@
 package lab07es1;
 
-import java.io.IOException;
-
 public class Main{
     final static int N=4;
     public static void main(String[] args){
