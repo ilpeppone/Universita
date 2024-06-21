@@ -1,4 +1,4 @@
-CREATE DATABASE Televisione;
+CREATE SCHEMA IF NOT EXISTS Televisione;
 
 USE Televisione;
 

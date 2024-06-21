@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS Lavoratori ;
+
 USE Lavoratori;
 
 CREATE TABLE Dipartimento(

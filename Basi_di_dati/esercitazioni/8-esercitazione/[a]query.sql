@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS Uffici_postali ;
+
 USE Uffici_postali;
 
 CREATE TABLE Clienti(

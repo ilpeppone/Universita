@@ -1,3 +1,5 @@
+CREATE SCHEMA IF NOT EXISTS Elezioni ;
+
 USE Elezioni;
 
 CREATE TABLE Partiti(
