@@ -145,7 +145,7 @@ SELECT D.*,COUNT(I.SSN) AS Numero_impiegati
 FROM DIPARTIMENTO D 
 LEFT JOIN IMPIEGATO I ON D.NUMERO_D = I.N_D
 GROUP BY D.NOME_D
-HAVING Numero_impiegati = 0;ù
+HAVING Numero_impiegati = 0;
 -- 28. Per ogni progetto elencare il nome del progetto ed il numero totale di ore spese su quel progetto (da tutti gli impiegati)
 SELECT P.NOME_P,SUM(LS.ORE) AS ORE_TOTALI
 FROM PROGETTO P 
