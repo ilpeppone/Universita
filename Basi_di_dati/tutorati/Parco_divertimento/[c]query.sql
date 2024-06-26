@@ -51,7 +51,7 @@ FROM Giostra
             WHERE B2.data >= '2023-01-01' AND B2.data <= '2023-12-31'
             GROUP BY B2.NS_Giostra
         ) AS CONTEGGI
-    );
+);
 
 -- QUERY 7
 
