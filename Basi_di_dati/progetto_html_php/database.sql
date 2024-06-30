@@ -2,29 +2,29 @@ CREATE SCHEMA IF NOT EXISTS Musei_Tate;
 USE Musei_Tate;
 CREATE TABLE ARTISTI(
     id INT NOT NULL PRIMARY KEY,
-    nome VARCHAR (50),
-    genere VARCHAR(20),
+    nome VARCHAR (120),
+    genere VARCHAR(6),
     anno_nascita INT,
     anno_morte  INT,
-    luogo_nascita VARCHAR(100),
-    luogo_morte VARCHAR(100),
-    indirizzo_url VARCHAR(300)
+    luogo_nascita VARCHAR(44),
+    luogo_morte VARCHAR(43),
+    indirizzo_url VARCHAR(131)
 );
 CREATE TABLE OPERE(
     id INT NOT NULL PRIMARY KEY,
-    accession_number CHAR(6),
-    ruoloartista VARCHAR(20),
+    accession_number CHAR(7),
+    ruoloartista VARCHAR(24),
     id_artista INT,
     FOREIGN KEY (id_artista) REFERENCES ARTISTI(id),
-    titolo VARCHAR(200),
-    dataTesto VARCHAR(30),
-    media VARCHAR(50),
-    crediti VARCHAR(200),
+    titolo VARCHAR(320),
+    dataTesto VARCHAR(75),
+    media VARCHAR(120),
+    crediti VARCHAR(821),
     anno INT,
     anno_acquisizione INT,
-    dimensioni VARCHAR(100),
+    dimensioni VARCHAR(248),
     inscription CHAR(14),
-    thumbnailCopyright VARCHAR(200),
-    thumbnailUrl VARCHAR(300),
-    indirizzo_url VARCHAR(300)
+    thumbnailCopyright VARCHAR(984),
+    thumbnailUrl VARCHAR(57),
+    indirizzo_url VARCHAR(134)
 );

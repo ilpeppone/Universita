@@ -12,7 +12,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connessione fallita: " . $conn->connect_error);
 } else {
-    echo "Connessione avvenuta con successo";
+    echo "Connessione avvenuta con successo<br>";
 }
 
 // Altri codici per le operazioni sul database...
