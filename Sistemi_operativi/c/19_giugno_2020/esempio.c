@@ -27,7 +27,7 @@ int main(int argc,char **argv){
         exit(2);
     }
 
-    if ((fd=open(argv[1],__O_DIRECTORY))<0){
+    if ((fd=open(argv[1],O_DIRECTORY))<0){
         perror("Errore apertura cartella");
         exit(3);
     }
