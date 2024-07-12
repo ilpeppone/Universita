@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Ricerca Artisti</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    <style>
+        body {
+            max-width: 1200px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ricerca Artisti</h1>
+    <form action="risultati_artisti.php" method="get">
+            <label>Id:</label>
+            <input type="number"  name="id" >
+
+            <label>Nome:</label>
+            <input type="text"  name="nome" >
+    
+            <label>Genere:</label>
+            <input type="text"  name="genere">
+    
+            <label>Luogo di Nascita:</label>
+            <input type="text" name="luogo_nascita">
+    
+            <label>Luogo di Morte:</label>
+            <input type="text"  name="luogo_morte">
+            
+            <label>Anno di Nascita:</label>
+            <input type="number"  name="anno_nascita">
+
+            <label>Anno di Morte:</label>
+            <input type="number"  name="anno_morte">
+    
+            <label>Indirizzo URL:</label>
+            <input type="text"  name="indirizzo_url">
+    
+            <button type="submit">Cerca</button>
+        </form>
+</body>
+</html>
