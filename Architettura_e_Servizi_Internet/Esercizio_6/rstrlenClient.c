@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include "utils.h"
 
-int main(int argc, char *argv){
+int main(int argc, char **argv){
     int sd, err, nread;
     uint8_t buffer[4096];
     char input[4096];
@@ -41,6 +41,7 @@ int main(int argc, char *argv){
 		fputs("Errore connessione!", stderr);
 		exit(EXIT_FAILURE);
 	}
+
 	freeaddrinfo(res);
 
     while(1){
