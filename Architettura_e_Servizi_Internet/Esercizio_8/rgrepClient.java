@@ -31,7 +31,7 @@ class rgrepClient{
             while((line=netIn.readLine())!=null){
                 System.out.println(line);
             }
-            s.close();
+            s.close(); 
         } catch (Exception e) {
             System.err.println("Errore connessione al server" + e.getMessage());
         }
