@@ -1,9 +1,11 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/hello', [userControllers::class, 'sayHello']);
+Route::get('/hello', [UserController::class, 'sayHello']);
+
+Route::get('/index', [UserController::class, 'index']);
