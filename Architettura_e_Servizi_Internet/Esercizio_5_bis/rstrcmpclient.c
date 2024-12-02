@@ -7,7 +7,7 @@
 #include <string.h>
 #include <signal.h>
 #include <unistd.h>
-
+#include "utils.h"
 
 int main (int argc,char **argv){
     char response[80];
@@ -29,7 +29,7 @@ int main (int argc,char **argv){
 
     err=getaddrinfo(argv[1],argv[2],&hints,&res);
     if(err!=0){
-        printf(stderr,"Errore risoluzione nome %s\n",gai_strerror(err));
+        fprintf(stderr,"Errore risoluzione nome %s\n",gai_strerror(err));
         exit(EXIT_FAILURE);
     }
     
@@ -172,6 +172,4 @@ int main (int argc,char **argv){
     close(sd);
 
     return 0;
-
-
 }
