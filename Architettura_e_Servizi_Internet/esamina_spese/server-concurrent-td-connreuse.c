@@ -165,7 +165,7 @@ int main (int argc,char **argv){
                 /*stringa filename*/
                 /*utilizzo il percorso expenses/202009/cancelleria.txt al posto di 
                 * /var/local/expenses/202009/cancelleria.txt*/
-                snprintf(filename,sizeof(filename),"/expenses/%s/%s.txt",mese,categoria);
+                snprintf(filename,sizeof(filename),"./expenses/%s/%s.txt",mese,categoria);
 
                 if(pipe(pipe_p1p2)<0){
                     perror("pipe");
