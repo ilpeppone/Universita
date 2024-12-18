@@ -92,7 +92,7 @@ int main(int argc,char **argv){
             char response_line[MAX_LINE_LENGTH];
             size_t response_line_len;
 
-            memest(response_line,0,sizeof(response_line));
+            memset(response_line,0,sizeof(response_line));
             response_line_len = sizeof(response_line) - 1;
 
             err = rxb_readline(&rxb,sd,response_line,&response_line_len);

@@ -9,6 +9,7 @@
 #include <unistd.h>
 #include "rxb.h"
 #include "utils.h"
+#include <signal.h>
 
 #define MAX_LINE_LENGTH 1024
 
@@ -29,7 +30,7 @@ int main(int argc,char **argv){
     struct sigaction sa;
 
     if(argc!=2){
-        printf(stderr,"Uso: ./%s porta");
+        fprintf(stderr,"Uso: ./%s porta",argv[0]);
         exit(EXIT_FAILURE);
     }
 
@@ -42,7 +43,7 @@ int main(int argc,char **argv){
     memset(&sa,0,sizeof(sa));
     sa.sa_handler = sigchld_handler;
     sa.sa_flags = SA_RESTART;
-    sigempty(&sa.sa_mask);
+    sigemptyset(&sa.sa_mask);
 
     err = sigaction(SIGCHLD,&sa,NULL);
     if(err<0){
@@ -57,7 +58,7 @@ int main(int argc,char **argv){
 
     err = getaddrinfo(NULL,argv[1],&hints,&res);
     if(err!=0){
-        printf(stderr,"Errore in getaddrinfo: %s\n",gai_strerror(err));
+        fprintf(stderr,"Errore in getaddrinfo: %s\n",gai_strerror(err));
         exit(EXIT_FAILURE);
     }
     sd = socket(res->ai_family,res->ai_socktype,res->ai_protocol);
@@ -106,7 +107,7 @@ int main(int argc,char **argv){
             memset(&sa,0,sizeof(sa));
             sa.sa_handler = sigchld_handler;
             sa.sa_flags = SA_RESTART;
-            sigempty(&sa.sa_mask);
+            sigemptyset(&sa.sa_mask);
 
              err = sigaction(SIGCHLD,&sa,NULL);
             if(err<0){
