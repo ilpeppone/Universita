@@ -230,7 +230,7 @@ int main(int argc,char **argv){
             close(ns);
         }
         /*padre*/
-        close(sd);
+        close(ns);
     }
     return EXIT_SUCCESS;
 }

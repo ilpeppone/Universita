@@ -3,6 +3,7 @@
         "signal.h": "c",
         "utils.h": "c",
         "unistd.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "socket.h": "c"
     }
 }
